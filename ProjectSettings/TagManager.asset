@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enviroment_floor
+    uniqueID: 3634253181
+    locked: 0
+  - name: Obstacles
+    uniqueID: 208598365
+    locked: 0
+  - name: Loot
+    uniqueID: 3851417959
+    locked: 0
+  - name: Bullets
+    uniqueID: 2526348979
+    locked: 0
+  - name: Characters
+    uniqueID: 875704029
+    locked: 0
