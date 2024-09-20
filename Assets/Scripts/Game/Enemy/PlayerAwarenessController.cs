@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerAwarenessController : MonoBehaviour
 {
+    public bool AwareOfPlayer { get; private set; }
 
-    public bool AwareOfPlayer {  get; private set; }
-
-    public Vector2 DirectionPlayer { get; private set; }
+    public Vector2 DirectionToPlayer { get; private set; } 
 
     [SerializeField]
     private float _PlayerAwarenessDistance;
@@ -18,11 +18,11 @@ public class PlayerAwarenessController : MonoBehaviour
     {
         _Player = FindObjectOfType<PlayerMovement>().transform;
     }
-    // Update is called once per frame
+
     void Update()
     {
         Vector2 enemyToPlayerVector = _Player.position - transform.position;
-        DirectionPlayer = enemyToPlayerVector.normalized;
+        DirectionToPlayer = enemyToPlayerVector.normalized;
 
         if (enemyToPlayerVector.magnitude <= _PlayerAwarenessDistance)
         {
@@ -32,6 +32,5 @@ public class PlayerAwarenessController : MonoBehaviour
         {
             AwareOfPlayer = false;
         }
-        
     }
 }

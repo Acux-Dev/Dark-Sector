@@ -76,8 +76,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44ded3585fefec4c95be1e980286215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 4
   _rotationSpeed: 150
+  _screenBorder: -30
+  _obstacleCheckCircleRadius: 0.45
+  _obstacleCheckDistance: 1
+  _obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &5414769111294100080
 MonoBehaviour:
   m_ObjectHideFlags: 0

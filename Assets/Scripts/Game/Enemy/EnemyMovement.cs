@@ -10,21 +10,38 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     private float _rotationSpeed;
 
+    [SerializeField]
+    private float _screenBorder;
+
+    [SerializeField]
+    private float _obstacleCheckCircleRadius;
+
+    [SerializeField]
+    private float _obstacleCheckDistance;
+
+    [SerializeField]
+    private LayerMask _obstacleLayerMask;
+
     private Rigidbody2D _rigidbody;
     private PlayerAwarenessController _playerAwarenessController;
     private Vector2 _targetDirection;
     private float _changeDirectionCooldown;
-
+    private Camera _camera;
+    private RaycastHit2D[] _obstacleCollisions;
+    private float _obstacleAvoidanceCooldown;
+    private Vector2 _obstacleAvoidanceTargetDirection;
+    private bool _avoidingObstacle = false;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();
         _targetDirection = transform.up;
+        _camera = Camera.main;
+        _obstacleCollisions = new RaycastHit2D[10];
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         UpdateTargetDirection();
         RotateTowardsTarget();
@@ -33,8 +50,14 @@ public class EnemyMovement : MonoBehaviour
 
     private void UpdateTargetDirection()
     {
-        HandleRandomDirectionChange();
-        HandlePlayerTargeting();
+        if (!_avoidingObstacle)
+        {
+            HandleRandomDirectionChange();
+            HandlePlayerTargeting();
+        }
+
+        HandleObstacles();
+        HandleEnemyOffScreen();
     }
 
     private void HandleRandomDirectionChange()
@@ -44,7 +67,7 @@ public class EnemyMovement : MonoBehaviour
         if (_changeDirectionCooldown <= 0)
         {
             float angleChange = Random.Range(-90f, 90f);
-            Quaternion rotation = Quaternion.AngleAxis(angleChange, transform.forward);
+            Quaternion rotation = Quaternion.AngleAxis(angleChange, Vector3.forward); 
             _targetDirection = rotation * _targetDirection;
 
             _changeDirectionCooldown = Random.Range(1f, 5f);
@@ -55,13 +78,74 @@ public class EnemyMovement : MonoBehaviour
     {
         if (_playerAwarenessController.AwareOfPlayer)
         {
-            _targetDirection = _playerAwarenessController.DirectionPlayer;
+            _targetDirection = _playerAwarenessController.DirectionToPlayer; 
+        }
+    }
+
+    private void HandleEnemyOffScreen()
+    {
+        Vector2 screenPosition = _camera.WorldToScreenPoint(transform.position);
+
+        if ((screenPosition.x < _screenBorder && _targetDirection.x < 0) ||
+            (screenPosition.x > _camera.pixelWidth - _screenBorder && _targetDirection.x > 0))
+        {
+            _targetDirection = new Vector2(-_targetDirection.x, _targetDirection.y);
+        }
+
+        if ((screenPosition.y < _screenBorder && _targetDirection.y < 0) ||
+            (screenPosition.y > _camera.pixelHeight - _screenBorder && _targetDirection.y > 0))
+        {
+            _targetDirection = new Vector2(_targetDirection.x, -_targetDirection.y);
+        }
+    }
+
+    private void HandleObstacles()
+    {
+        _obstacleAvoidanceCooldown -= Time.deltaTime;
+
+        var contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(_obstacleLayerMask);
+
+        int numberOfCollisions = Physics2D.CircleCast(
+            transform.position,
+            _obstacleCheckCircleRadius,
+            transform.up,
+            contactFilter,
+            _obstacleCollisions,
+            _obstacleCheckDistance);
+
+        if (numberOfCollisions > 0 && _obstacleAvoidanceCooldown <= 0)
+        {
+            _avoidingObstacle = true;
+
+
+            for (int index = 0; index < numberOfCollisions; index++)
+            {
+                var obstacleCollision = _obstacleCollisions[index];
+
+                if (obstacleCollision.collider.gameObject != gameObject)
+                {
+
+                    _obstacleAvoidanceTargetDirection = obstacleCollision.normal;
+
+                   
+                    float avoidanceAngle = 45f; 
+                    _obstacleAvoidanceTargetDirection = Quaternion.Euler(0, 0, avoidanceAngle) * _obstacleAvoidanceTargetDirection;
+
+                    _obstacleAvoidanceCooldown = 0.5f; 
+                    break;
+                }
+            }
+        }
+        else if (_obstacleAvoidanceCooldown <= 0)
+        {
+            _avoidingObstacle = false;
         }
     }
 
     private void RotateTowardsTarget()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(transform.forward, _targetDirection);
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, _targetDirection);
         Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
 
         _rigidbody.SetRotation(rotation);
