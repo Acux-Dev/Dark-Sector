@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Bullet : MonoBehaviour
         {
             HealthController healthController = collision.GetComponent<HealthController>();
             healthController.TakeDamage(10);
+            Destroy(gameObject);
+        }
+        if (collision.GetComponent<TilemapCollider2D>())
+        {
             Destroy(gameObject);
         }
     }
