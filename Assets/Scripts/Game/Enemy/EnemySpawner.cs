@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemyPrefab;
+    private GameObject[] _enemyPrefab;
 
     [SerializeField]
     private float _minimumSpawnTime;
@@ -26,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
 
         if (_timeUntilSpawn <= 0)
         {
-            Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            int randomEnemy = Random.Range(0, _enemyPrefab.Length);
+            GameObject enemyToSpawn = _enemyPrefab[randomEnemy];
+            Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
             SetTimeUntilSpawn();
         }
     }
