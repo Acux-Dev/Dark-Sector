@@ -6,9 +6,16 @@ public class SpriteFlash : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
 
+    [SerializeField]
+    private AudioClip _flashSound; 
+
+    private AudioSource _audioSource;
+
     private void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _audioSource = gameObject.AddComponent<AudioSource>(); 
+        _audioSource.clip = _flashSound; 
     }
 
     public IEnumerator FlashCoroutine(float flashDuration, Color flashColor, int numberOfFlashes)
@@ -28,7 +35,13 @@ public class SpriteFlash : MonoBehaviour
             }
 
             float pingPongPercentage = Mathf.PingPong(elapsedFlashPercentage * 2 * numberOfFlashes, 1);
-            _spriteRenderer.color = Color.Lerp(startColor, flashColor, pingPongPercentage);
+
+            if (pingPongPercentage == 0) 
+            {
+                _audioSource.PlayOneShot(_flashSound); 
+            }
+
+            _spriteRenderer.color = Color.Lerp(startColor, flashColor, pingPongPercentage); 
 
             yield return null;
         }

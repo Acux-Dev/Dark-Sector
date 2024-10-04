@@ -22,6 +22,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     private LayerMask _obstacleLayerMask;
 
+    [SerializeField]
+    private AudioClip _movementSound;  
+    private AudioSource _audioSource;  
+
     private Rigidbody2D _rigidbody;
     private PlayerAwarenessController _playerAwarenessController;
     private Vector2 _targetDirection;
@@ -38,6 +42,7 @@ public class EnemyMovement : MonoBehaviour
         _targetDirection = transform.up;
         _camera = Camera.main;
         _obstacleCollisions = new RaycastHit2D[10];
+        _audioSource = GetComponent<AudioSource>(); 
     }
 
     private void FixedUpdate()
@@ -45,6 +50,7 @@ public class EnemyMovement : MonoBehaviour
         UpdateTargetDirection();
         RotateTowardsTarget();
         SetVelocity();
+        HandleMovementSound();  // Controlamos el sonido en movimiento
     }
 
     private void UpdateTargetDirection()
@@ -143,5 +149,26 @@ public class EnemyMovement : MonoBehaviour
     private void SetVelocity()
     {
         _rigidbody.velocity = transform.up * _speed;
+    }
+
+    // Controla el sonido de movimiento
+    private void HandleMovementSound()
+    {
+        if (_rigidbody.velocity.magnitude > 0.1f)
+        {
+            if (!_audioSource.isPlaying)
+            {
+                _audioSource.loop = true;  
+                _audioSource.clip = _movementSound;
+                _audioSource.Play();
+            }
+        }
+        else
+        {
+            if (_audioSource.isPlaying)
+            {
+                _audioSource.Stop();
+            }
+        }
     }
 }
