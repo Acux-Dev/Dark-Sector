@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7777461037233634710}
   - component: {fileID: 3835075096831964800}
   - component: {fileID: 7604892487952164298}
+  - component: {fileID: -8116641589412439831}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -241,6 +242,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: -8116641589412439831}
+        m_TargetAssemblyTypeName: EnemyDeadParticles, Assembly-CSharp
+        m_MethodName: DeadParticles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDamaged:
     m_PersistentCalls:
       m_Calls: []
@@ -369,6 +382,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8116641589412439831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570903595788051356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0861f3591c1584f8cfbb205a25c600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bloodParticles: {fileID: 6065071311767993156, guid: 7612d1b303688f044a49e4b02e2f5a55, type: 3}
 --- !u!1 &8846599983321935195
 GameObject:
   m_ObjectHideFlags: 0

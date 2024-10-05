@@ -8,7 +8,7 @@ public class EnemyCollectableDrop : MonoBehaviour
 
     [SerializeField]
     private AudioClip _dropSound;  
-    private AudioSource _audioSource;  
+    private AudioSource _audioSource;
 
     private CollectableSpawner _collectableSpawner;
 
