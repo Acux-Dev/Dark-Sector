@@ -11,11 +11,14 @@ public class CambiarRotacion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        objetivo = camera.ScreenToWorldPoint(Input.mousePosition);
+        if (!PauseMenu.GameIsPaused)
+        {
+            objetivo = camera.ScreenToWorldPoint(Input.mousePosition);
 
-        float anguloRadianes = Mathf.Atan2(objetivo.y - transform.position.y, objetivo.x - transform.position.x);
-        float anguloGrados = (180 / Mathf.PI) * anguloRadianes - 90;
-        transform.rotation = Quaternion.Euler(0, 0, anguloGrados); 
+            float anguloRadianes = Mathf.Atan2(objetivo.y - transform.position.y, objetivo.x - transform.position.x);
+            float anguloGrados = (180 / Mathf.PI) * anguloRadianes - 90;
+            transform.rotation = Quaternion.Euler(0, 0, anguloGrados); 
+        }
         
     }
 }
