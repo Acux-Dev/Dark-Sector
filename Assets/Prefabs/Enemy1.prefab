@@ -37,7 +37,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: 3, z: 0.008665269}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7245267270010486465}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44ded3585fefec4c95be1e980286215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  _speed: 6
   _rotationSpeed: 150
   _screenBorder: -30
   _obstacleCheckCircleRadius: 0.45
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62344b99921a6a84981fdfd207ee2c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageAmount: 50
+  _damageAmount: 15
 --- !u!114 &3907487995469857029
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,11 +17,11 @@ GameObject:
   - component: {fileID: 3907487995469857029}
   - component: {fileID: 391978419837251657}
   - component: {fileID: 7777461037233634710}
-  - component: {fileID: 499027737641472733}
-  - component: {fileID: 8578454188605332}
-  - component: {fileID: 6382650652465029614}
+  - component: {fileID: 3835075096831964800}
+  - component: {fileID: 7604892487952164298}
+  - component: {fileID: -8116641589412439831}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: Enemy3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: 3, z: 0.008665269}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7245267270010486465}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44ded3585fefec4c95be1e980286215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  _speed: 2
   _rotationSpeed: 150
   _screenBorder: -30
   _obstacleCheckCircleRadius: 0.45
@@ -90,7 +90,7 @@ MonoBehaviour:
   _obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  _movementSound: {fileID: 8300000, guid: af72aeaaf0559184fa2b24be2a897c59, type: 3}
+  _movementSound: {fileID: 8300000, guid: 4bdda12b907e9b84caaac6d9c60743ee, type: 3}
 --- !u!114 &5414769111294100080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62344b99921a6a84981fdfd207ee2c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageAmount: 30
+  _damageAmount: 50
 --- !u!114 &3907487995469857029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dac409aa2a102844b22af4ec1f78d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _killScore: 15
+  _killScore: 50
 --- !u!114 &391978419837251657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,8 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d067b11d2786bf4fa9c79c0a611cfdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 20
-  _maximumHealth: 20
+  _currentHealth: 40
+  _maximumHealth: 40
   OnDied:
     m_PersistentCalls:
       m_Calls:
@@ -230,7 +230,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 499027737641472733}
+      - m_Target: {fileID: 3835075096831964800}
         m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
         m_MethodName: RandomlyDropCollectable
         m_Mode: 1
@@ -242,7 +242,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6382650652465029614}
+      - m_Target: {fileID: -8116641589412439831}
         m_TargetAssemblyTypeName: EnemyDeadParticles, Assembly-CSharp
         m_MethodName: DeadParticles
         m_Mode: 1
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8816301bd4206c348bdde4f453bc732f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &499027737641472733
+--- !u!114 &3835075096831964800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,9 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf64ed75bffd914a8590d1ac66eb4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chanceOfCollectableDrop: 0.3
+  _chanceOfCollectableDrop: 0.2
   _dropSound: {fileID: 8300000, guid: 7feced5b0cea5b144ba203cf971a73a3, type: 3}
---- !u!82 &8578454188605332
+--- !u!82 &7604892487952164298
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,7 +296,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: af72aeaaf0559184fa2b24be2a897c59, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4bdda12b907e9b84caaac6d9c60743ee, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
@@ -382,7 +382,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6382650652465029614
+--- !u!114 &-8116641589412439831
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -468,7 +468,7 @@ SpriteRenderer:
   m_SortingLayerID: 875704029
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 43a24372eb599ae47adf7d10e58192ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32887bb6beeeba045832586833aabcb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
