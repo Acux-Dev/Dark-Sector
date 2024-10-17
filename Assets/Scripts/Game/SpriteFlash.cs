@@ -24,6 +24,8 @@ public class SpriteFlash : MonoBehaviour
         float elapsedFlashTime = 0;
         float elapsedFlashPercentage = 0;
 
+        _audioSource.PlayOneShot(_flashSound);
+
         while (elapsedFlashTime < flashDuration)
         {
             elapsedFlashTime += Time.deltaTime;
@@ -35,11 +37,6 @@ public class SpriteFlash : MonoBehaviour
             }
 
             float pingPongPercentage = Mathf.PingPong(elapsedFlashPercentage * 2 * numberOfFlashes, 1);
-
-            if (pingPongPercentage == 0) 
-            {
-                _audioSource.PlayOneShot(_flashSound); 
-            }
 
             _spriteRenderer.color = Color.Lerp(startColor, flashColor, pingPongPercentage); 
 
